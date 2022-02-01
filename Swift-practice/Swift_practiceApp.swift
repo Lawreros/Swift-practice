@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+@main //The main program where the app starts from
 struct Swift_practiceApp: App {
     var body: some Scene {
         WindowGroup {
