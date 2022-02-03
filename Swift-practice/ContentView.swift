@@ -9,22 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var emojis = ["🚗","🛵","🚂","🚁","🚑","✈️","🚜"]
-    @State var emojiCount = 3 //number of rectangles that we want
+    @State var emojiCount = 5 //number of rectangles that we want
     
     var body: some View {
         VStack{//Verticle Stack (From the top down)
-            HStack{//Horizontal Stack
+            //HStack{//Horizontal Stack
     //            CardView(content: emojis[0])
     //            CardView(isFaceUp: false,content: emojis[1]) //overrides any default value for a variable inside the struct/view
     //            CardView(content: emojis[2])
     //            CardView(content: emojis[3])
-                
-                ForEach(emojis[0...emojiCount], id: \.self){ emoji in // the id: \.self assigns each emoji an identifier that is itself. So the string "🚗" now has its id = "🚗". So in a dict sense {🚗:"🚗", 🚁:"🚁"}
-                    CardView(content: emoji)
+            
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65, maximum: 100))]){
+                    ForEach(emojis[0...emojiCount], id: \.self){ emoji in // the id: \.self assigns each emoji an identifier that is itself. So the string "🚗" now has its id = "🚗". So in a dict sense {🚗:"🚗", 🚁:"🚁"}
+                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
+                    }
                 }
+                .padding(.horizontal)
+                .foregroundColor(.red)
             }
-            .padding(.horizontal)
-            .foregroundColor(.red)
+            Spacer()
             
             HStack{
                 remove //button view defined below
@@ -81,8 +85,9 @@ struct CardView: View{
                 shape.fill()
                     .foregroundColor(.white)
             
-                shape.stroke(lineWidth: 3)//stroke view modifier now makes this view all about the border. If you were to put .fill(.white) at the end of this view, you would actually be filling the outline view made by stroke.
-            
+                //shape.stroke(lineWidth: 3)//stroke view modifier now makes this view all about the border. If you were to put .fill(.white) at the end of this view, you would actually be filling the outline view made by stroke.
+                shape.strokeBorder(lineWidth: 3)//similar to stroke, but draws lines on inside of border instead of centered on border
+                
                 Text(content)
                     .font(.largeTitle)
             } else {
@@ -106,6 +111,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView() //Can be modified, click on it
             .preferredColorScheme(.dark)
+.previewInterfaceOrientation(.portraitUpsideDown)
         //Can make a second simulator to see different things
         //ContentView()
     }
