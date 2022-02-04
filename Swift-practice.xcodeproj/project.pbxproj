@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9113CF6827ADB91900CF8F35 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9113CF6727ADB91900CF8F35 /* MemoryGame.swift */; };
 		915733A327A786E70094CB1C /* Swift_practiceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915733A227A786E70094CB1C /* Swift_practiceApp.swift */; };
 		915733A527A786E70094CB1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915733A427A786E70094CB1C /* ContentView.swift */; };
 		915733A727A786EB0094CB1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915733A627A786EB0094CB1C /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9113CF6727ADB91900CF8F35 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		9157339F27A786E70094CB1C /* Swift-practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift-practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		915733A227A786E70094CB1C /* Swift_practiceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_practiceApp.swift; sourceTree = "<group>"; };
 		915733A427A786E70094CB1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				915733A227A786E70094CB1C /* Swift_practiceApp.swift */,
 				915733A427A786E70094CB1C /* ContentView.swift */,
+				9113CF6727ADB91900CF8F35 /* MemoryGame.swift */,
 				915733A627A786EB0094CB1C /* Assets.xcassets */,
 				915733A827A786EB0094CB1C /* Preview Content */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9113CF6827ADB91900CF8F35 /* MemoryGame.swift in Sources */,
 				915733A527A786E70094CB1C /* ContentView.swift in Sources */,
 				915733A327A786E70094CB1C /* Swift_practiceApp.swift in Sources */,
 			);
