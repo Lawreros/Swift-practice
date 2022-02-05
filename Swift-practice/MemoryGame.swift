@@ -8,7 +8,7 @@
 import Foundation //basic library for Swift that doesn't include a lot of UI stuff
 
 struct MemoryGame<CardContent> { //defined by the user of this struct. CardContent is a "don't care" variable
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
     func choose(_: Card) {
         
@@ -19,15 +19,18 @@ struct MemoryGame<CardContent> { //defined by the user of this struct. CardConte
         // add numberOfPairsOfCards x 2 cards to cards array
         for pairIndex in 0..<numberOfPairsOfCards {
             let content: CardContent = createCardContent(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id: pairIndex*2))
+            cards.append(Card(content: content, id: pairIndex*2+1))
         }
     }
     
-    struct Card { //This struct is called MemoryGame.Card outside of this struct
+    struct Card: Identifiable {// saying Card "behaves like" Identifiable lets us use it in ForEach, as each Card struct will have a unique identifier
+         
         var isFaceUp: Bool = false
         var isMatches: Bool = false
         var content: CardContent //want to keep this flexible as to what symbol/number/image is on the card
+       
+        var id: Int //have the associated identifier be a number
     }
     
 }

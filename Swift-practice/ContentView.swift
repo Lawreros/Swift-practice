@@ -8,37 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
-    var viewModel: EmojiMemoryGame
+    let viewModel: EmojiMemoryGame
     
     var body: some View {
-        VStack{
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65, maximum: 100))]){
-                    ForEach(, id: \.self){ emoji in
-                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
-                    }
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65, maximum: 100))]){
+                ForEach(viewModel.cards){ card in
+                    CardView(card: card)
+                        .aspectRatio(2/3, contentMode: .fit)
                 }
-                .padding(.horizontal)
-                .foregroundColor(.red)
             }
-            
+            .padding(.horizontal)
+            .foregroundColor(.red)
         }
-        
     }
 }
 
 struct CardView: View{
+    let card: MemoryGame<String>.Card
     
     var body: some View{
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 20)
             
-            if isFaceUp {
+            if card.isFaceUp {
                 shape.fill()
                     .foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 
-                Text(content)
+                Text(card.content)
                     .font(.largeTitle)
             } else {
                 RoundedRectangle(cornerRadius: 20)

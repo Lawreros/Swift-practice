@@ -13,7 +13,7 @@ import SwiftUI
 
 
 class EmojiMemoryGame {
-    static let emojis = ["🚗","🛵","🚂","🚁","🚑","✈️","🚜"] //static means that emojis is seen globally as EmojiMemoryGame.emojis
+    static let emojis = ["🚗","🛵","🚂","🚁","🚑","✈️","🚜","🏎","🚢","🚖"] //static means that emojis is seen globally as EmojiMemoryGame.emojis
     
     
     private var model: MemoryGame<String> =
