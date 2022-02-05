@@ -10,8 +10,20 @@ import Foundation //basic library for Swift that doesn't include a lot of UI stu
 struct MemoryGame<CardContent> { //defined by the user of this struct. CardContent is a "don't care" variable
     private(set) var cards: Array<Card>
     
-    func choose(_: Card) {
-        
+    mutating func choose(_ card: Card) {
+        let chosenIndex = index(of: card)
+        //var chosenCard = cards[chosenIndex]  WRONG, as soon as a struct is assigned to a different variable a copy is made
+        cards[chosenIndex].isFaceUp.toggle()
+        print("\(cards)")
+    }
+    
+    func index(of card: Card) -> Int {// "of card" means "of" is external variable name and "card" is local/internal variable name
+        for index in 0..<cards.count {
+            if cards[index].id == card.id{
+                return index
+            }
+        }
+        return 0
     }
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {

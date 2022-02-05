@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    let viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel: EmojiMemoryGame
+    //@ObservedObject means that when this variable says something changed, please rebuild my entire body
+    
     
     var body: some View {
         ScrollView {
@@ -16,6 +18,9 @@ struct ContentView: View {
                 ForEach(viewModel.cards){ card in
                     CardView(card: card)
                         .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
             }
             .padding(.horizontal)
