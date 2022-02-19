@@ -5,8 +5,7 @@
 //  Created by Ross on 1/30/22.
 //
 
-import SwiftUI
-
+import SwiftUI //just like python, imports the library SwiftUI, contains stuff related to user interfacing
 struct ContentView: View {
     var emojis = ["🚗","🛵","🚂","🚁","🚑","✈️","🚜"]
     @State var emojiCount = 5 //number of rectangles that we want
