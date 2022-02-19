@@ -6,29 +6,97 @@
 //
 
 import SwiftUI //just like python, imports the library SwiftUI, contains stuff related to user interfacing
-
-struct ContentView: View { //This is a structure named ContentView which behaves like a View (i.e. inherits all the ability and responsibility of a View)
+struct ContentView: View {
+    var emojis = ["🚗","🛵","🚂","🚁","🚑","✈️","🚜"]
+    @State var emojiCount = 5 //number of rectangles that we want
+    
     var body: some View {
-        //return ZStack(alignment: .center, content: {//allows you to list views which are lumped together, stacking them as layers in order they appear, can contain simple if-then statements
+        VStack{//Verticle Stack (From the top down)
+            //HStack{//Horizontal Stack
+    //            CardView(content: emojis[0])
+    //            CardView(isFaceUp: false,content: emojis[1]) //overrides any default value for a variable inside the struct/view
+    //            CardView(content: emojis[2])
+    //            CardView(content: emojis[3])
             
-        return ZStack{ //same as above Zstack option, generally you don't include "content:{" or the parenthesis for asthetic reasons. It is assumed the last entry is the content so ZStack(alignment: .center, content:{...}) becomes ZStack(alignment: .center){...}
-            RoundedRectangle(cornerRadius: 20)
-                        .stroke(lineWidth: 3)
-                        .padding(.horizontal)
-                        .foregroundColor(.red)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65, maximum: 100))]){
+                    ForEach(emojis[0...emojiCount], id: \.self){ emoji in // the id: \.self assigns each emoji an identifier that is itself. So the string "🚗" now has its id = "🚗". So in a dict sense {🚗:"🚗", 🚁:"🚁"}
+                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
+                    }
+                }
+                .padding(.horizontal)
+                .foregroundColor(.red)
+            }
+            Spacer()
             
-            Text("Hello, CS193p!") //Text is actually a function, you can do 'return Text(...)' and it will still work
-                        .font(.headline) //specified font type
-                        .padding() //padding seen around the text specified above
-                    //.functions() return new Views and are called "view modifiers" so they need to be contained by some View. You can't do:
-                    //var body:Text{
-                    // return Text("...").padding()
-                    // }
-                    //
-                    // Each new .viewmodifier() returns a modified version of the previous view so .first_modified().second_modified().third_modified()
-        }//).padding()
-        // can treat ZStack as a View, with view modifiers like .padding(), which pads the entire view. You can also have view modifiers like .foregroundColor(.red), which sets the default foreground color of  every view inside of the ZStack to red (you can still modify the colors of views inside of the ZStack to be different from the default)
+            HStack{
+                remove //button view defined below
+                Spacer() //takes up as much space as possible
+                add //button view defined below
+            }
+            .font(.largeTitle)//the font size extends to certain image types if supported by apple
+            .padding(.horizontal)
+        }
         
+    }
+    
+    var remove: some View {
+        Button(action: {
+            if emojiCount > 1 {
+                emojiCount -= 1
+            }
+        }, label:{
+//            VStack {
+//                Text("Remove")
+//                Text("Card")
+//            }
+            Image(systemName: "minus.circle")
+        })
+    }
+    
+    var add: some View {
+        Button(action: {
+            if emojiCount < emojis.count-1 {
+                emojiCount += 1
+            }
+        }, label:{
+//            VStack {
+//                Text("Add")
+//                Text("Card")
+//            }
+            Image(systemName: "plus.circle")
+        })
+    }
+}
+
+struct CardView: View{
+    @State var isFaceUp: Bool = true //all variables have to have an initial value or be provided one as an argument (get rid of "= true" and put "isFaceUp: true" in the arguments of the "CardView()" stuff above
+    
+    //@State points to some external memory. Because Views/structs are immutable but also run through all of the functions they contain each time they are called, this allows for a somewhat hacky way to change the view state.
+    
+    var content: String
+    
+    var body: some View{// this is a var because it changes every time someone asks for it, as it excutes the contained function(s) to determine its value
+        ZStack {
+            let shape = RoundedRectangle(cornerRadius: 20) //can make local variables of repeated views/functions
+            
+            if isFaceUp {
+                shape.fill()
+                    .foregroundColor(.white)
+            
+                //shape.stroke(lineWidth: 3)//stroke view modifier now makes this view all about the border. If you were to put .fill(.white) at the end of this view, you would actually be filling the outline view made by stroke.
+                shape.strokeBorder(lineWidth: 3)//similar to stroke, but draws lines on inside of border instead of centered on border
+                
+                Text(content)
+                    .font(.largeTitle)
+            } else {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill()
+                
+            }
+        }.onTapGesture {
+            isFaceUp = !isFaceUp //isFaceUp is a value stored outside of the struct
+        }
     }
 }
 
@@ -40,6 +108,10 @@ struct ContentView: View { //This is a structure named ContentView which behaves
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView() //Can be modified, click on it
+            .preferredColorScheme(.dark)
+.previewInterfaceOrientation(.portraitUpsideDown)
+        //Can make a second simulator to see different things
+        //ContentView()
     }
 }
